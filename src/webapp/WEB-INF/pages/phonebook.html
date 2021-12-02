@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Справочник</title>
+</head>
+<body>
+
+<!--<a href="/create">Create new User</a>-->
+<form class="button" th:method="GET" th:action="@{/create}">
+    <input type="submit" value="Создать нового пользователя"/>
+</form>
+<br/>
+<hr/>
+<div th:each="user : ${users}">
+    <a th:href="@{{id}(id=${user.getId()})}"  th:text="${user.getName()}">user</a>
+</div>
+
+</body>
+</html>
