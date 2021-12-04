@@ -24,13 +24,13 @@ public class UserController {
 
     @GetMapping
     public String mainPage(Model model) {
-        model.addAttribute("users", userService.getUsers());
+        model.addAttribute("users", userService.getAllUsers());
         return "phonebook";
     }
 
     @GetMapping("/{id}")
     public String showContact(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.findUser(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "user";
     }
 
@@ -44,13 +44,13 @@ public class UserController {
         if (result.hasErrors()) {
             return "create";
         }
-        userService.createUser(user);
+        userService.saveUser(user);
         return "redirect:/";
     }
 
     @GetMapping("/{id}/edit")
     public String getEditForm(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.findUser(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "edit";
     }
 
@@ -66,7 +66,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        userService.deleteUser(id);
+        userService.deleteUserById(id);
         return "redirect:/";
     }
 }
