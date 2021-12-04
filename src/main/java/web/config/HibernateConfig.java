@@ -2,6 +2,7 @@ package web.config;
 
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -49,10 +50,10 @@ public class HibernateConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
-        entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         entityManager.setDataSource(dataSource());
-        entityManager.setPersistenceUnitName("myJpaPersistenceUnit");
-        entityManager.setPackagesToScan("com.javaspringclub");
+        entityManager.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+        entityManager.setPackagesToScan(environment.getProperty("db.models.package"));
+        entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         entityManager.setJpaProperties(hibernateProperties());
         return entityManager;
     }
@@ -67,10 +68,10 @@ public class HibernateConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
-        dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
-        dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
-        dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
+        dataSource.setDriverClassName(environment.getRequiredProperty("db.driverClassName"));
+        dataSource.setUrl(environment.getRequiredProperty("db.url"));
+        dataSource.setUsername(environment.getRequiredProperty("db.username"));
+        dataSource.setPassword(environment.getRequiredProperty("db.password"));
         return dataSource;
     }
 }
