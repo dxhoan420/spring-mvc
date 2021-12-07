@@ -25,8 +25,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-//(proxyTargetClass = true) нужна или нет в следующей строке, что делает вообще?
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)// нужно или нет, что делает вообще?
 @PropertySource("classpath:db.properties")
 @ComponentScan("web")
 public class HibernateConfig {

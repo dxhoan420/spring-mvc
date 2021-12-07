@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
-@Entity @Table
+@Entity @Table(name = "users")
 @Getter @Setter @ToString
 @NoArgsConstructor @AllArgsConstructor
 public class User {

@@ -1,4 +1,4 @@
-package web.repository;
+package web.dao;
 
 import org.springframework.stereotype.Repository;
 import web.model.User;
@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserRepository {
+public class UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 

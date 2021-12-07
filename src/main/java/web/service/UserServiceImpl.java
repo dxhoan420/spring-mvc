@@ -1,32 +1,31 @@
 package web.service;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
-import web.repository.UserRepository;
+import web.dao.UserDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    private UserRepository repository;
+    private final UserDao repository;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserDao repository) {
         this.repository = repository;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<User> getAllUsers() {
         return repository.getAllUsers();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public User getUserById(long id) {
         return repository.getUserById(id);
