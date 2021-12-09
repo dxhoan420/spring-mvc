@@ -11,7 +11,7 @@ import web.service.UserService;
 import javax.validation.Valid;
 
 @Controller
-//@RequestMapping("/")
+@RequestMapping("/")
 public class UserController {
 
     private UserService userService;
@@ -21,6 +21,10 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping(value = "login")
+    public String getLoginPage() {
+        return "login";
+    }
 
     @GetMapping
     public String mainPage(Model model) {
@@ -28,13 +32,13 @@ public class UserController {
         return "phonebook";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public String showContact(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "user";
     }
 
-    @GetMapping("/create")
+    @GetMapping("create")
     public String getCreateForm(@ModelAttribute("user") User user) {
         return "create";
     }
@@ -48,13 +52,13 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("{id}/edit")
     public String getEditForm(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.getUserById(id));
         return "edit";
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("{id}")
     public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult result,
                              @PathVariable("id") int id) {
         if (result.hasErrors()) {
@@ -64,7 +68,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public String delete(@PathVariable("id") int id) {
         userService.deleteUserById(id);
         return "redirect:/";

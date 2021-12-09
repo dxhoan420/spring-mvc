@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>Справочник</title>
 </head>
 <body>
 
-<!--<a href="/create">Create new User</a>-->
+<h1>Справочник</h1>
+<br/>
+
+<!--Authenticated username:-->
+<!--<div sec:authentication="name"></div>-->
+<!--Authenticated user roles:-->
+<!--<div sec:authentication="principal.authorities"></div>-->
+<!--<br/>-->
+
+<!--sec:authorize="hasRole('ADMIN')" -->
+<div sec:authorize="hasRole('USER')">Text visible to user.</div>
+<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
 <form class="button" th:method="GET" th:action="@{/create}">
     <input type="submit" value="Создать нового пользователя"/>
 </form>
