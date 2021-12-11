@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>
-    <a th:text="${user.getName()}">name</a>
+    <a th:text="${user.getUsername()}">name</a>
 </h1>
 <p>Идентификационный номер: <a th:text="${user.getId()}">id</a></p>
 <p>E-mail:
@@ -15,19 +15,17 @@
 </p>
 <p>Основной номер: <a th:href="'tel:' + ${user.getPhone()}" th:text="${user.getPhone()}">phone</a>
 </p>
-<!--<p>Дата рождения: <a th:text="${user.getBirthdate().toString()}">birthdate</a>-->
-<!--</p>-->
 <br/>
 <hr/>
-<form class="button" th:method="GET" th:action="@{/{id}/edit(id=${user.getId()})}">
+<form class="button" th:method="GET" th:action="@{/admin/{id}/edit(id=${user.getId()})}">
     <input type="submit" value="Редактировать"/>
 </form>
 <br/>
-<form class="button" th:method="DELETE" th:action="@{'/' + ${user.getId()}}">
+<form class="button" th:method="DELETE" th:action="@{'/admin/' + ${user.getId()}}">
     <input type="submit" value="Удалить"/>
 </form>
 <br/>
-<form class="button" th:method="GET" th:action="@{/}">
+<form class="button" th:method="GET" th:action="@{/admin/}">
     <input type="submit" value="Назад"/>
 </form>
 </body>

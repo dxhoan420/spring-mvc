@@ -1,13 +1,15 @@
 package web.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import web.model.User;
 
 import java.util.List;
 
-public interface UserService {
-    public List<User> getAllUsers();
-    public User getUserById(long id);
-    public boolean saveUser(User user);
-    public void updateUser(long id, User user);
-    public boolean deleteUserById(long id);
+public interface UserService extends UserDetailsService {
+    List<User> getAllUsers();
+    User getUserById(long id);
+    boolean saveUser(User user);
+    void updateUser(long id, User user);
+    boolean deleteUserById(long id);
+    User findByUsername(String username);
 }

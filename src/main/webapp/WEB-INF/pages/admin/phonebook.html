@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ</title>
+</head>
+<body>
+<h1>Админка</h1>
+<br/>
+<form class="button" th:method="GET" th:action="@{/admin/create}">
+    <input type="submit" value="Создать нового пользователя"/>
+</form>
+<form class="button" th:method="GET" th:action="@{/user/info}">
+    <input type="submit" value="Моя страница пользователя"/>
+</form>
+<br/>
+<hr/>
+<div th:each="user : ${users}">
+    <a th:href="'/admin/user/' + ${user.getId()}"  th:text="${user.getUsername()}">user</a>
+</div>
+<hr/>
+<br/>
+<form class="button" th:method="GET" th:action="@{/logout}">
+    <input type="submit" value="Выйти из учётной записи"/>
+</form>
+</body>
+</html>
