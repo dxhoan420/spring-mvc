@@ -31,6 +31,7 @@ public class UserDaoImpl implements  UserDao {
         old.setUsername(updatedUser.getUsername());
         old.setEmail(updatedUser.getEmail());
         old.setPhone(updatedUser.getPhone());
+        old.setRoles(updatedUser.getRoles());
     }
 
     public void deleteUserById(long id) {

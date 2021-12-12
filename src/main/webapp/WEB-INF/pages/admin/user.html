@@ -9,12 +9,16 @@
     <a th:text="${user.getUsername()}">name</a>
 </h1>
 <p>Идентификационный номер: <a th:text="${user.getId()}">id</a></p>
+<p>Пароль: <a th:text="${user.getPassword()}">password</a></p>
 <p>E-mail:
 <a th:text="${user.getEmail()}">e-mail</a>
 <a th:href="'mailto:' + ${user.getEmail()}">Send email </a>
 </p>
 <p>Основной номер: <a th:href="'tel:' + ${user.getPhone()}" th:text="${user.getPhone()}">phone</a>
 </p>
+<th:block th:each="role : ${user.getRoles()}">
+    <p th:text="${role.getRole()}"></p>
+</th:block>
 <br/>
 <hr/>
 <form class="button" th:method="GET" th:action="@{/admin/{id}/edit(id=${user.getId()})}">

@@ -13,6 +13,9 @@
     <br/>
     <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error</div>
     <br/>
+    <label for = "password">Пароль: </label>
+    <input type="text" th:field="*{password}" id = "password"/>
+    <br/>
     <label for="email">Электронная почта: </label>
     <input type="text" th:field="*{email}" id = "email"/>
     <br/>
@@ -20,11 +23,21 @@
     <br/>
     <label for="phone">Телефон: </label>
     <input type="text" th:field="*{phone}" id = "phone"/>
+    <br/>
+    <tr>
+        <td>Права доступа</td>
+        <td>
+            <th:block th:each="role : ${roles}">
+                <input type="checkbox" name="checked" th:value="${role.getId()}"/>
+                <label th:text="${role.getRole()}"></label>
+            </th:block>
+        </td>
+    </tr>
     <hr/>
     <input type="submit" value="Сохранить"/>
 </form>
 <br/>
-<form class="button" th:method="GET" th:action="@{/}">
+<form class="button" th:method="GET" th:action="@{/admin/}">
     <input type="submit" value="Отмена"/>
 </form>
 </body>

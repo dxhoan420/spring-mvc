@@ -12,14 +12,28 @@
     <input type="text" th:field="*{username}" id = "username"/>
     <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error</div>
     <p></p>
+    <label for = "password">Пароль: </label>
+    <input type="text" th:field="*{password}" id = "password"/>
+    <p></p>
     <label for="email">Электронная почта: </label>
     <input type="text" th:field="*{email}" id = "email"/>
     <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
     <p></p>
     <label for="phone">Телефон: </label>
     <input type="text" th:field="*{phone}" id = "phone"/>
+    <p></p>
+    <tr>
+        <td>Права доступа</td>
+        <td>
+            <th:block th:each="role : ${roles}">
+                <input type="checkbox" name="checked" th:value="${role.getId()}"/>
+                <label th:text="${role.getRole()}"></label>
+            </th:block>
+        </td>
+    </tr>
     <hr/>
-<!--    <div>-->
+
+    <!--    <div>-->
 <!--        <ul>-->
 <!--            <li th:each="checkbox : ${roles}">-->
 <!--                <input type="checkbox" th:field="*{roles}" th:value="${checkbox.getRole()}" />-->

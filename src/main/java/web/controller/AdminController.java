@@ -1,33 +1,23 @@
 package web.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.dao.RoleRepository;
 import web.model.User;
+import web.service.RoleService;
 import web.service.UserService;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/")
+@AllArgsConstructor
 public class AdminController {
 
     private UserService userService;
-    private RoleRepository roleRepository;
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    @Autowired
-    public void setRoleRepository(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
+    private RoleService roleService;
 
     @GetMapping()
     public String mainPage(Model model) {
@@ -42,15 +32,18 @@ public class AdminController {
     }
 
     @GetMapping("create")
-    public String getCreateForm(@ModelAttribute("user") User user) {
+    public String getCreateForm(@ModelAttribute("user") User user, Model model) {
+        model.addAttribute("roles", roleService.getAllRoles());
         return "admin/create";
     }
 
     @PostMapping()
-    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult result) {
+    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult result,
+                             @RequestParam(value="checked", required = false) long[] checked) {
         if (result.hasErrors()) {
             return "admin/create";
         }
+        user.setRoles(roleService.getRolesByIds(checked));
         userService.saveUser(user);
         return "redirect:/admin/";
     }
@@ -58,15 +51,18 @@ public class AdminController {
     @GetMapping("{id}/edit")
     public String getEditForm(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("roles", roleService.getAllRoles());
         return "admin/edit";
     }
 
     @PatchMapping("{id}")
     public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult result,
-                             @PathVariable("id") int id) {
+                             @PathVariable("id") int id,
+                             @RequestParam(value="checked", required = false) long[] checked) {
         if (result.hasErrors()) {
             return "admin/edit";
         }
+        user.setRoles(roleService.getRolesByIds(checked));
         userService.updateUser(id, user);
         return "redirect:/admin/";
     }
