@@ -8,7 +8,7 @@ public interface UserDao {
     List<User> getAllUsers();
     User getUserById(long id);
     void saveUser(User user);
-    void updateUser(long id, User updatedUser);
+    void updateUser(User updatedUser);
     void deleteUserById(long id);
     User findByUsername(String username);
 }

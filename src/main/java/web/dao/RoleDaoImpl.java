@@ -21,8 +21,10 @@ public class RoleDaoImpl implements RoleDao{
     @Override
     public List<Role> getRolesByIds(long[] ids) {
         List<Role> roles = new ArrayList<>();
-        for (Long id:ids) {
-            roles.add(entityManager.find(Role.class, id));
+        if (ids != null) {
+            for (Long id : ids) {
+                roles.add(entityManager.find(Role.class, id));
+            }
         }
         return roles;
     }

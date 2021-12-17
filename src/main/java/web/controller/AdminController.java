@@ -57,13 +57,12 @@ public class AdminController {
 
     @PatchMapping("{id}")
     public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult result,
-                             @PathVariable("id") int id,
                              @RequestParam(value="checked", required = false) long[] checked) {
         if (result.hasErrors()) {
             return "admin/edit";
         }
         user.setRoles(roleService.getRolesByIds(checked));
-        userService.updateUser(id, user);
+        userService.updateUser(user);
         return "redirect:/admin/";
     }
 
