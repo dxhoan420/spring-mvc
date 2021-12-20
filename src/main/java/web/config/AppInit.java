@@ -3,6 +3,7 @@ package web.config;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
@@ -34,22 +35,10 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
 
         servletContext.addFilter("hiddenHttpMethodFilter", new HiddenHttpMethodFilter())
                 .addMappingForUrlPatterns(null, true, "/*");
-//Русские символы в БД не сохраняются, следующие строки не помогают
-//        FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encodingFilter", new CharacterEncodingFilter());
-//        encodingFilter.setInitParameter("encoding", "UTF-8");
-//        encodingFilter.setInitParameter("forceEncoding", "true");
-//        encodingFilter.addMappingForUrlPatterns(null, true, "/*");
-
-//        servletContext.addFilter("characterEncodingFilter",
-//                        new CharacterEncodingFilter("UTF-8", true, true))
-//                .addMappingForUrlPatterns(null, true, "/*");
     }
 
-//    @Override
-//    protected Filter[] getServletFilters() {
-//        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-//        characterEncodingFilter.setEncoding("UTF-8");
-//        characterEncodingFilter.setForceEncoding(true);
-//        return new Filter[] {characterEncodingFilter};
-//    }
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[]{new EncodingFilter()};
+    }
 }
